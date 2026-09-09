@@ -18,8 +18,8 @@ const jost = Jost({
 })
 
 export const metadata: Metadata = {
-  title: "Maison Aurelle — Fine Jewelry",
-  description: "A curated catalogue of fine jewelry, crafted for a lifetime.",
+  title: "MAGOLD — JOYERIA ",
+  description: "Catálogo exclusivo de joyas",
   generator: "v0.app",
 }
 
