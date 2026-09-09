@@ -4,7 +4,7 @@ export function Logo() {
       href="#top"
       className="font-serif text-xl tracking-[0.35em] text-charcoal transition-opacity hover:opacity-70 md:text-2xl"
     >
-      MAISON AURELLE
+      MAGOLD
     </a>
   )
 }
