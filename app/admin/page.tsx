@@ -1,4 +1,5 @@
 import { createSupabaseServerClient } from "@/lib/supabase-server"
+import { ProductEditDialog } from "@/components/admin/product-edit-dialog"
 import {
   Table,
   TableBody,
@@ -37,6 +38,7 @@ export default async function AdminPage() {
                 <TableHead>Producto</TableHead>
                 <TableHead>Características</TableHead>
                 <TableHead>Precio</TableHead>
+                <TableHead className="w-[120px]">Acciones</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -52,6 +54,9 @@ export default async function AdminPage() {
                   </TableCell>
                   <TableCell className="text-charcoal">
                     {product.price}
+                  </TableCell>
+                  <TableCell>
+                    <ProductEditDialog product={product} />
                   </TableCell>
                 </TableRow>
               ))}
