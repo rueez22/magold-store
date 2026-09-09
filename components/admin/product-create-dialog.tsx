@@ -81,36 +81,44 @@ export function ProductCreateDialog() {
         <Button>Nuevo producto</Button>
       </DialogTrigger>
 
-      <DialogContent>
+      <DialogContent className="border-stone/30 bg-ivory text-charcoal">
         <DialogHeader>
-          <DialogTitle>Nuevo producto</DialogTitle>
-          <DialogDescription>
+          <DialogTitle className="text-charcoal">Nuevo producto</DialogTitle>
+          <DialogDescription className="text-stone">
             Agrega un producto al catálogo.
           </DialogDescription>
         </DialogHeader>
 
         <div className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="create-name">Nombre</Label>
+            <Label htmlFor="create-name" className="text-charcoal">
+              Nombre
+            </Label>
             <Input
               id="create-name"
               value={name}
               onChange={(event) => setName(event.target.value)}
+              className="border-stone/40 bg-white text-charcoal placeholder:text-stone"
             />
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="create-features">Características</Label>
+            <Label htmlFor="create-features" className="text-charcoal">
+              Características
+            </Label>
             <Input
               id="create-features"
               value={features}
               onChange={(event) => setFeatures(event.target.value)}
               placeholder="Característica 1, Característica 2"
+              className="border-stone/40 bg-white text-charcoal placeholder:text-stone"
             />
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="create-price">Precio</Label>
+            <Label htmlFor="create-price" className="text-charcoal">
+              Precio
+            </Label>
             <Input
               id="create-price"
               type="number"
@@ -118,6 +126,7 @@ export function ProductCreateDialog() {
               step="0.01"
               value={price}
               onChange={(event) => setPrice(event.target.value)}
+              className="border-stone/40 bg-white text-charcoal placeholder:text-stone"
             />
           </div>
 
