@@ -3,49 +3,32 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 255, 255, 255;
-  --background-start-rgb: 0, 0, 0;
-  --background-end-rgb: 0, 0, 0;
+  --foreground-rgb: 28, 26, 23;
+  --background-rgb: 247, 244, 239;
 }
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(to bottom, transparent, rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
-  cursor: none;
+  background: rgb(var(--background-rgb));
 }
 
-/* Custom inverse cursor */
-.custom-cursor {
-  width: 20px;
-  height: 20px;
-  border: 2px solid white;
-  border-radius: 50%;
-  position: fixed;
-  pointer-events: none;
-  z-index: 9999;
-  mix-blend-mode: difference;
-}
-
-/* Inverse text selection */
+/* Refined text selection */
 ::selection {
-  background-color: #ffffff;
-  color: #0a0a0a;
+  background-color: #1c1a17;
+  color: #f7f4ef;
 }
 
-/* Click animation */
-@keyframes click {
-  0% {
-    transform: scale(1);
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
   }
-  50% {
-    transform: scale(1.5);
-  }
-  100% {
-    transform: scale(1);
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-.cursor-click {
-  animation: click 0.3s ease-in-out;
+.animate-fade-up {
+  animation: fade-up 1s ease-out both;
 }
-

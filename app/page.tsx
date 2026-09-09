@@ -2,49 +2,56 @@ import { HoodieCard } from "@/components/hoodie-card"
 import { AutoSliderBanner } from "@/components/auto-slider-banner"
 
 export default function Home() {
-  const hoodies = [
+  const pieces = [
     {
       id: 1,
-      name: "SDFM Classic Black",
-      price: 149.99,
-      image1: "https://i.pinimg.com/736x/92/06/56/920656e03f09691d871e149b5dad8f7f.jpg",
-      image2: "https://i.pinimg.com/736x/94/d3/14/94d31436dfc73fcf93058089f69ffd96.jpg",
+      name: "Solitaire Aurelle",
+      material: "18k Gold · Diamond",
+      price: 4200,
+      image: "/jewelry/ring.png",
     },
     {
       id: 2,
-      name: "SDFM Premium Gray",
-      price: 154.99,
-      image1: "https://i.pinimg.com/736x/92/06/56/920656e03f09691d871e149b5dad8f7f.jpg",
-      image2: "https://i.pinimg.com/736x/94/d3/14/94d31436dfc73fcf93058089f69ffd96.jpg",
+      name: "Lumière Pendant",
+      material: "18k Gold · Diamond",
+      price: 1850,
+      image: "/jewelry/necklace.png",
     },
     {
       id: 3,
-      name: "SDFM Signature Navy",
-      price: 159.99,
-      image1: "https://i.pinimg.com/736x/92/06/56/920656e03f09691d871e149b5dad8f7f.jpg",
-      image2: "https://i.pinimg.com/736x/94/d3/14/94d31436dfc73fcf93058089f69ffd96.jpg",
+      name: "Perle Drop Earrings",
+      material: "Gold · Akoya Pearl",
+      price: 1290,
+      image: "/jewelry/earrings.png",
     },
     {
       id: 4,
-      name: "SDFM Limited Edition",
-      price: 199.99,
-      image1: "https://i.pinimg.com/736x/92/06/56/920656e03f09691d871e149b5dad8f7f.jpg",
-      image2: "https://i.pinimg.com/736x/94/d3/14/94d31436dfc73fcf93058089f69ffd96.jpg",
+      name: "Rivière Bracelet",
+      material: "White Gold · Diamond",
+      price: 6800,
+      image: "/jewelry/bracelet.png",
     },
   ]
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between">
-      {/* Full-screen Auto-sliding Banner */}
+    <main id="top" className="flex min-h-screen flex-col">
       <AutoSliderBanner />
 
-      {/* Product Section */}
-      <section id="product-section" className="w-full py-12 md:py-24 bg-dark-900">
-        <div className="container mx-auto px-4">
-          <h2 className="mb-8 text-3xl font-bold text-center text-gray-100">Latest Collection</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {hoodies.map((hoodie) => (
-              <HoodieCard key={hoodie.id} {...hoodie} />
+      <section id="product-section" className="w-full bg-ivory">
+        <div className="mx-auto max-w-6xl px-6 py-24 md:px-12 md:py-36">
+          <div className="mb-20 flex flex-col items-center gap-4 text-center">
+            <span className="text-xs uppercase tracking-[0.4em] text-gold">The Collection</span>
+            <h2 className="font-serif text-4xl font-light tracking-tight text-charcoal md:text-5xl">
+              Signature Pieces
+            </h2>
+            <p className="max-w-lg text-pretty text-sm leading-relaxed text-stone">
+              A selection of our most enduring designs, each accompanied by a certificate of authenticity.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 gap-x-10 gap-y-16 sm:grid-cols-2 lg:grid-cols-4">
+            {pieces.map((piece) => (
+              <HoodieCard key={piece.id} {...piece} />
             ))}
           </div>
         </div>
@@ -52,4 +59,3 @@ export default function Home() {
     </main>
   )
 }
-

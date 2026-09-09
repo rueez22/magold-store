@@ -7,20 +7,19 @@ module.exports = {
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
-      "*.{js,ts,jsx,tsx,mdx}"
-],
+    "*.{js,ts,jsx,tsx,mdx}",
+  ],
   theme: {
     extend: {
       colors: {
-        dark: {
-          100: "#2A2A2A",
-          200: "#252525",
-          300: "#202020",
-          400: "#1A1A1A",
-          500: "#151515",
-          600: "#101010",
-          900: "#0A0A0A",
+        ivory: "#F7F4EF",
+        cream: "#FFFFFF",
+        charcoal: "#1C1A17",
+        gold: {
+          DEFAULT: "#A8894F",
+          light: "#C7AE83",
         },
+        stone: "#8A857C",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -55,19 +54,9 @@ module.exports = {
           foreground: "hsl(var(--card-foreground))",
         },
       },
-      keyframes: {
-        "matrix-fade": {
-          "0%, 100%": { opacity: 0 },
-          "50%": { opacity: 1 },
-        },
-        click: {
-          "0%, 100%": { transform: "scale(1)" },
-          "50%": { transform: "scale(0.95)" },
-        },
-      },
-      animation: {
-        matrix: "matrix-fade 0.5s ease-in-out infinite",
-        click: "click 0.3s ease-in-out",
+      fontFamily: {
+        serif: ["var(--font-cormorant)", "serif"],
+        sans: ["var(--font-jost)", "sans-serif"],
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -78,4 +67,3 @@ module.exports = {
   },
   plugins: [require("tailwindcss-animate")],
 }
-

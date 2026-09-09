@@ -1,17 +1,26 @@
 import "./globals.css"
 import type { Metadata } from "next"
-import { Inter } from "next/font/google"
+import { Cormorant_Garamond, Jost } from "next/font/google"
 import type React from "react"
 import { SplashScreen } from "@/components/splash-screen"
 import { Logo } from "@/components/logo"
-import { CustomCursor } from "@/components/custom-cursor"
 
-const inter = Inter({ subsets: ["latin"] })
+const cormorant = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600"],
+  variable: "--font-cormorant",
+})
+
+const jost = Jost({
+  subsets: ["latin"],
+  weight: ["300", "400", "500"],
+  variable: "--font-jost",
+})
 
 export const metadata: Metadata = {
-  title: "SDFM 2520 - Premium Hoodies",
-  description: "Premium streetwear and comfortable hoodies",
-    generator: 'v0.app'
+  title: "Maison Aurelle — Fine Jewelry",
+  description: "A curated catalogue of fine jewelry, crafted for a lifetime.",
+  generator: "v0.app",
 }
 
 export default function RootLayout({
@@ -20,21 +29,29 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className="dark scroll-smooth">
-      <body className={`${inter.className} bg-dark-900 text-gray-100`}>
+    <html lang="en" className={`scroll-smooth ${cormorant.variable} ${jost.variable}`}>
+      <body className="bg-ivory font-sans text-charcoal antialiased">
         <SplashScreen />
-        <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 pointer-events-none">
-          <Logo />
-        </div>
+        <header className="fixed top-0 left-0 z-50 w-full">
+          <div className="flex items-center justify-center py-6">
+            <Logo />
+          </div>
+        </header>
         {children}
-        <footer className="w-full py-6 px-4 bg-dark-600 text-gray-400">
-          <div className="container mx-auto text-center">
-            <p>&copy; 2023 SDFM 2520. All rights reserved.</p>
+        <footer className="w-full border-t border-charcoal/10 bg-ivory">
+          <div className="mx-auto max-w-6xl px-6 py-16 md:px-12">
+            <div className="flex flex-col items-center gap-4 text-center">
+              <span className="font-serif text-2xl tracking-[0.2em] text-charcoal">MAISON AURELLE</span>
+              <p className="max-w-md text-sm leading-relaxed text-stone">
+                Fine jewelry, ethically sourced and crafted by hand in our atelier.
+              </p>
+              <p className="mt-6 text-xs uppercase tracking-[0.25em] text-stone">
+                &copy; {new Date().getFullYear()} Maison Aurelle. All rights reserved.
+              </p>
+            </div>
           </div>
         </footer>
-        <CustomCursor />
       </body>
     </html>
   )
 }
-
