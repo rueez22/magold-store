@@ -80,56 +80,52 @@ export function ProductEditDialog({ product }: { product: Product }) {
     window.location.reload()
   }
 
-  const dialogId = `edit-product-${product.id}`
-  const titleId = `${dialogId}-title`
-  const descriptionId = `${dialogId}-description`
-
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>
-        <Button
-          variant="outline"
-          size="sm"
-          aria-controls={dialogId}
-        >
+        <Button variant="outline" size="sm">
           Editar
         </Button>
       </DialogTrigger>
 
-      <DialogContent
-        id={dialogId}
-        aria-labelledby={titleId}
-        aria-describedby={descriptionId}
-      >
+      <DialogContent className="border-stone/30 bg-ivory text-charcoal">
         <DialogHeader>
-          <DialogTitle id={titleId}>Editar producto</DialogTitle>
-          <DialogDescription id={descriptionId}>
+          <DialogTitle className="text-charcoal">Editar producto</DialogTitle>
+          <DialogDescription className="text-stone">
             Modifica el nombre, las características y el precio del producto.
           </DialogDescription>
         </DialogHeader>
 
         <div className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor={`name-${product.id}`}>Nombre</Label>
+            <Label htmlFor={`name-${product.id}`} className="text-charcoal">
+              Nombre
+            </Label>
             <Input
               id={`name-${product.id}`}
               value={name}
               onChange={(event) => setName(event.target.value)}
+              className="border-stone/40 bg-white text-charcoal placeholder:text-stone"
             />
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor={`features-${product.id}`}>Características</Label>
+            <Label htmlFor={`features-${product.id}`} className="text-charcoal">
+              Características
+            </Label>
             <Input
               id={`features-${product.id}`}
               value={features}
               onChange={(event) => setFeatures(event.target.value)}
               placeholder="Característica 1, Característica 2"
+              className="border-stone/40 bg-white text-charcoal placeholder:text-stone"
             />
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor={`price-${product.id}`}>Precio</Label>
+            <Label htmlFor={`price-${product.id}`} className="text-charcoal">
+              Precio
+            </Label>
             <Input
               id={`price-${product.id}`}
               type="number"
@@ -137,6 +133,7 @@ export function ProductEditDialog({ product }: { product: Product }) {
               step="0.01"
               value={price}
               onChange={(event) => setPrice(event.target.value)}
+              className="border-stone/40 bg-white text-charcoal placeholder:text-stone"
             />
           </div>
 
