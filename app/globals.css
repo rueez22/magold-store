@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 28, 26, 23;
-  --background-rgb: 247, 244, 239;
+  --foreground-rgb: 26, 26, 26;
+  --background-rgb: 250, 250, 250;
 }
 
 body {
@@ -14,8 +14,8 @@ body {
 
 /* Refined text selection */
 ::selection {
-  background-color: #1c1a17;
-  color: #f7f4ef;
+  background-color: #1a1a1a;
+  color: #fafafa;
 }
 
 @keyframes fade-up {
