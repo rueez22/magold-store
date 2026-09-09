@@ -30,6 +30,14 @@ export function HoodieCard({ name, characteristics, price, image }: JewelryCardP
           ))}
         </ul>
         <p className="mt-4 text-base tracking-wide text-charcoal">${price.toLocaleString()}</p>
+        <a
+          href={`https://wa.me/59170000000?text=Hola,%20me%20interesa%20el%20producto%20${encodeURIComponent(name)}%20de%20$${price.toLocaleString()}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-5 flex w-full items-center justify-center bg-charcoal px-6 py-3.5 text-xs font-medium uppercase tracking-[0.2em] text-cream transition-opacity hover:opacity-90"
+        >
+          Consultar por WhatsApp
+        </a>
       </div>
     </article>
   )
