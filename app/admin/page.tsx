@@ -1,6 +1,7 @@
 import { createSupabaseServerClient } from "@/lib/supabase-server"
 import { ProductEditDialog } from "@/components/admin/product-edit-dialog"
 import { ProductDeleteDialog } from "@/components/admin/product-delete-dialog"
+import { ProductCreateDialog } from "@/components/admin/product-create-dialog"
 import {
   Table,
   TableBody,
@@ -26,13 +27,19 @@ export default async function AdminPage() {
   return (
     <main className="min-h-screen bg-ivory p-8">
       <div className="mx-auto max-w-6xl">
-        <h1 className="font-serif text-4xl text-charcoal">
-          Panel de administración
-        </h1>
+        <div className="flex items-end justify-between gap-4">
+          <div>
+            <h1 className="font-serif text-4xl text-charcoal">
+              Panel de administración
+            </h1>
 
-        <p className="mt-2 text-sm text-stone">
-          Gestiona los productos de tu catálogo.
-        </p>
+            <p className="mt-2 text-sm text-stone">
+              Gestiona los productos de tu catálogo.
+            </p>
+          </div>
+
+          <ProductCreateDialog />
+        </div>
 
         <div className="mt-8 overflow-hidden rounded-lg border bg-white">
           <Table>
