@@ -41,12 +41,12 @@ export default function RootLayout({
         <footer className="w-full border-t border-charcoal/10 bg-ivory">
           <div className="mx-auto max-w-6xl px-6 py-16 md:px-12">
             <div className="flex flex-col items-center gap-4 text-center">
-              <span className="font-serif text-2xl tracking-[0.2em] text-charcoal">MAISON AURELLE</span>
+              <span className="font-serif text-2xl tracking-[0.2em] text-charcoal">MAGOLD - JOYERIA </span>
               <p className="max-w-md text-sm leading-relaxed text-stone">
-                Fine jewelry, ethically sourced and crafted by hand in our atelier.
+                Catálogo exclusivo de joyas.
               </p>
               <p className="mt-6 text-xs uppercase tracking-[0.25em] text-stone">
-                &copy; {new Date().getFullYear()} Maison Aurelle. All rights reserved.
+                &copy; {new Date().getFullYear()} MAGOLD TRINIDAD. All rights reserved.
               </p>
             </div>
           </div>
