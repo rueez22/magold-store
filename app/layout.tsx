@@ -29,7 +29,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`scroll-smooth ${cormorant.variable} ${jost.variable}`}>
+    <html lang="es" className={`scroll-smooth ${cormorant.variable} ${jost.variable}`}>
       <body className="bg-ivory font-sans text-charcoal antialiased">
         <SplashScreen />
         <header className="fixed top-0 left-0 z-50 w-full">
