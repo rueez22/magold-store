@@ -40,12 +40,12 @@ export default function Home() {
       <section id="product-section" className="w-full bg-ivory">
         <div className="mx-auto max-w-6xl px-6 py-24 md:px-12 md:py-36">
           <div className="mb-20 flex flex-col items-center gap-4 text-center">
-            <span className="text-xs uppercase tracking-[0.4em] text-gold">The Collection</span>
+            <span className="text-xs uppercase tracking-[0.4em] text-gold">La Colección</span>
             <h2 className="font-serif text-4xl font-light tracking-tight text-charcoal md:text-5xl">
-              Signature Pieces
+              Piezas Destacadas
             </h2>
             <p className="max-w-lg text-pretty text-sm leading-relaxed text-stone">
-              A selection of our most enduring designs, each accompanied by a certificate of authenticity.
+              Una selección de nuestros diseños más duraderos.
             </p>
           </div>
 
