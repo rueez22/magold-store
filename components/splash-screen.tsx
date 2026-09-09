@@ -19,12 +19,12 @@ export function SplashScreen() {
       )}
     >
       <span className="animate-fade-up font-serif text-3xl tracking-[0.4em] text-charcoal md:text-5xl">
-        MAISON AURELLE
+        MAGOLD
       </span>
       <div className="mt-8 h-px w-16 overflow-hidden bg-charcoal/15">
         <div className="h-full w-full origin-left animate-fade-up bg-gold" />
       </div>
-      <span className="mt-6 animate-fade-up text-xs uppercase tracking-[0.35em] text-stone">Fine Jewelry</span>
+      <span className="mt-6 animate-fade-up text-xs uppercase tracking-[0.35em] text-stone">"Joyería Fina"</span>
     </div>
   )
 }
