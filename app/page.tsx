@@ -1,37 +1,17 @@
 import { HoodieCard } from "@/components/hoodie-card"
 import { AutoSliderBanner } from "@/components/auto-slider-banner"
+import { supabase } from "@/lib/supabase"
 
-export default function Home() {
-  const pieces = [
-    {
-      id: 1,
-      name: "Anillo de Oro 18k con Diamante",
-      features: ["Oro amarillo 18k", "Peso 3.2 g", "Diamante 1.05 ct", "Talla brillante", "Certificado GIA"],
-      price: 29400,
-      image: "/jewelry/ring.png",
-    },
-    {
-      id: 2,
-      name: "Collar de Perlas",
-      features: ["Perlas Akoya 8 mm", "Broche oro 18k", "Largo 45 cm", "42 perlas", "Lustre AAA"],
-      price: 12950,
-      image: "/jewelry/necklace.png",
-    },
-    {
-      id: 3,
-      name: "Pulsera de Plata 925",
-      features: ["Plata esterlina 925", "Peso 12.4 g", "Largo 19 cm", "Cierre mosquetón", "Acabado pulido"],
-      price: 3200,
-      image: "/jewelry/silver-bracelet.png",
-    },
-    {
-      id: 4,
-      name: "Aretes de Oro con Perlas",
-      features: ["Oro 18k", "Peso 5.6 g", "Perlas Akoya 8 mm", "Cierre presión", "Par simétrico"],
-      price: 9030,
-      image: "/jewelry/earrings.png",
-    },
-  ]
+export default async function Home() {
+  const { data: pieces, error } = await supabase
+  .from("products")
+  .select("id, name, features, price, image_url")
+  .order("id", { ascending: true })
+
+if (error) {
+  throw new Error(`Failed to load products: ${error.message}`)
+}
+  
 
   return (
     <main id="top" className="flex min-h-screen flex-col">
@@ -51,8 +31,14 @@ export default function Home() {
 
           <div className="grid grid-cols-1 gap-x-10 gap-y-16 sm:grid-cols-2 lg:grid-cols-4">
             {pieces.map((piece) => (
-              <HoodieCard key={piece.id} {...piece} />
-            ))}
+ <HoodieCard
+    key={piece.id}
+    name={piece.name}
+    features={piece.features}
+    price={piece.price}
+    image={piece.image_url}
+  />
+))}
           </div>
         </div>
       </section>
