@@ -1,8 +1,8 @@
-import { NextResponse } from "next/server"
+import { NextRequest, NextResponse } from "next/server"
 import { createServerClient } from "@supabase/ssr"
 
-export async function middleware(request: Request) {
-  const response = NextResponse.next({
+export async function middleware(request: NextRequest) {
+  let response = NextResponse.next({
     request,
   })
 
@@ -12,16 +12,12 @@ export async function middleware(request: Request) {
     {
       cookies: {
         getAll() {
-          return request.headers.get("cookie")?.split("; ").map((cookie) => {
-            const [name, ...value] = cookie.split("=")
-            return {
-              name,
-              value: value.join("="),
-            }
-          }) ?? []
+          return request.cookies.getAll()
         },
-        setAll() {
-          // Cookies are refreshed by the authentication flow.
+        setAll(cookiesToSet) {
+          cookiesToSet.forEach(({ name, value, options }) => {
+            response.cookies.set(name, value, options)
+          })
         },
       },
     }
@@ -31,7 +27,9 @@ export async function middleware(request: Request) {
     data: { user },
   } = await supabase.auth.getUser()
 
-  if (!user && new URL(request.url).pathname.startsWith("/admin")) {
+  const pathname = request.nextUrl.pathname
+
+  if (!user && pathname !== "/admin/login") {
     return NextResponse.redirect(new URL("/admin/login", request.url))
   }
 
