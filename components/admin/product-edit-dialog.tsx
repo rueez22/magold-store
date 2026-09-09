@@ -80,18 +80,30 @@ export function ProductEditDialog({ product }: { product: Product }) {
     window.location.reload()
   }
 
+  const dialogId = `edit-product-${product.id}`
+  const titleId = `${dialogId}-title`
+  const descriptionId = `${dialogId}-description`
+
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>
-        <Button variant="outline" size="sm">
+        <Button
+          variant="outline"
+          size="sm"
+          aria-controls={dialogId}
+        >
           Editar
         </Button>
       </DialogTrigger>
 
-      <DialogContent>
+      <DialogContent
+        id={dialogId}
+        aria-labelledby={titleId}
+        aria-describedby={descriptionId}
+      >
         <DialogHeader>
-          <DialogTitle>Editar producto</DialogTitle>
-          <DialogDescription>
+          <DialogTitle id={titleId}>Editar producto</DialogTitle>
+          <DialogDescription id={descriptionId}>
             Modifica el nombre, las características y el precio del producto.
           </DialogDescription>
         </DialogHeader>
