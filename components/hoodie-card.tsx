@@ -1,5 +1,3 @@
-import Image from "next/image"
-
 interface JewelryCardProps {
   name: string
   features: string[]
@@ -9,15 +7,14 @@ interface JewelryCardProps {
 
 export function HoodieCard({ name, features, price, image }: JewelryCardProps) {
   const formattedPrice = `Bs. ${price.toLocaleString("es-BO")}`
+
   return (
     <article className="flex flex-col">
       <div className="relative aspect-[4/5] w-full overflow-hidden bg-cream">
-        <Image
+        <img
           src={image || "/placeholder.svg"}
           alt={name}
-          fill
-          className="object-cover"
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+          className="absolute inset-0 h-full w-full object-cover"
         />
       </div>
       <div className="flex flex-col pt-5">
