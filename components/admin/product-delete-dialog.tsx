@@ -50,19 +50,28 @@ export function ProductDeleteDialog({ product }: { product: Product }) {
         </Button>
       </AlertDialogTrigger>
 
-      <AlertDialogContent>
+      <AlertDialogContent className="border-charcoal bg-ivory text-charcoal">
         <AlertDialogHeader>
-          <AlertDialogTitle>¿Eliminar producto?</AlertDialogTitle>
-          <AlertDialogDescription>
+          <AlertDialogTitle className="text-charcoal">
+            ¿Eliminar producto?
+          </AlertDialogTitle>
+          <AlertDialogDescription className="text-stone">
             Esta acción eliminará permanentemente “{product.name}” del catálogo.
           </AlertDialogDescription>
         </AlertDialogHeader>
 
         <AlertDialogFooter>
-          <AlertDialogCancel disabled={loading}>
+          <AlertDialogCancel
+            disabled={loading}
+            className="border-charcoal bg-white text-charcoal hover:bg-white/80"
+          >
             Cancelar
           </AlertDialogCancel>
-          <AlertDialogAction onClick={handleDelete} disabled={loading}>
+          <AlertDialogAction
+            onClick={handleDelete}
+            disabled={loading}
+            className="bg-red-600 text-white hover:bg-red-700"
+          >
             {loading ? "Eliminando..." : "Eliminar"}
           </AlertDialogAction>
         </AlertDialogFooter>
