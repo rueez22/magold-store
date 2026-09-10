@@ -17,7 +17,7 @@ export default async function AdminPage() {
   const supabase = await createSupabaseServerClient()
   const { data: products, error } = await supabase
     .from("products")
-    .select("id, name, features, price")
+    .select("id, name, features, price, image_url")
     .order("id", { ascending: true })
 
   if (error) {
@@ -55,7 +55,20 @@ export default async function AdminPage() {
               {products?.map((product) => (
                 <TableRow key={product.id}>
                   <TableCell className="font-medium text-charcoal">
-                    {product.name}
+                    <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+                      {product.image_url ? (
+                        <img
+                          src={product.image_url}
+                          alt={product.name}
+                          className="h-16 w-16 rounded-md border border-stone/20 object-cover"
+                        />
+                      ) : (
+                        <div className="flex h-16 w-16 items-center justify-center rounded-md border border-stone/20 bg-ivory text-xs text-stone">
+                          Sin imagen
+                        </div>
+                      )}
+                      <span>{product.name}</span>
+                    </div>
                   </TableCell>
                   <TableCell className="text-stone">
                     {Array.isArray(product.features)
