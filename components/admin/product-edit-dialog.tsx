@@ -14,12 +14,14 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { supabaseBrowser } from "@/lib/supabase-browser"
+import { ProductImageInput, uploadProductImage } from "./product-image-upload"
 
 type Product = {
   id: number
   name: string
   features: string[] | string | null
   price: number
+  image_url?: string | null
 }
 
 export function ProductEditDialog({ product }: { product: Product }) {
@@ -31,6 +33,7 @@ export function ProductEditDialog({ product }: { product: Product }) {
   const [name, setName] = useState(product.name)
   const [features, setFeatures] = useState(initialFeatures)
   const [price, setPrice] = useState(String(product.price))
+  const [image, setImage] = useState<File | null>(null)
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState("")
 
@@ -40,6 +43,7 @@ export function ProductEditDialog({ product }: { product: Product }) {
       setName(product.name)
       setFeatures(initialFeatures)
       setPrice(String(product.price))
+      setImage(null)
       setError("")
     }
   }
@@ -48,36 +52,50 @@ export function ProductEditDialog({ product }: { product: Product }) {
     setError("")
 
     const parsedPrice = Number(price)
-    if (!name.trim() || Number.isNaN(parsedPrice)) {
+    if (!name.trim() || Number.isNaN(parsedPrice) || parsedPrice < 0) {
       setError("Completa el nombre y usa un precio válido.")
       return
     }
 
     setSaving(true)
 
-    const normalizedFeatures = features
-      .split(",")
-      .map((feature) => feature.trim())
-      .filter(Boolean)
+    try {
+      let imageUrl = product.image_url ?? null
 
-    const { error: updateError } = await supabaseBrowser
-      .from("products")
-      .update({
-        name: name.trim(),
-        features: normalizedFeatures,
-        price: parsedPrice,
-      })
-      .eq("id", product.id)
+      if (image) {
+        imageUrl = await uploadProductImage(image)
+      }
 
-    setSaving(false)
+      const normalizedFeatures = features
+        .split(",")
+        .map((feature) => feature.trim())
+        .filter(Boolean)
 
-    if (updateError) {
-      setError("No se pudieron guardar los cambios.")
-      return
+      const { error: updateError } = await supabaseBrowser
+        .from("products")
+        .update({
+          name: name.trim(),
+          features: normalizedFeatures,
+          price: parsedPrice,
+          image_url: imageUrl,
+        })
+        .eq("id", product.id)
+
+      if (updateError) {
+        throw new Error(updateError.message)
+      }
+
+      setOpen(false)
+      window.location.reload()
+    } catch (saveError) {
+      setError(
+        saveError instanceof Error
+          ? saveError.message
+          : "No se pudieron guardar los cambios."
+      )
+    } finally {
+      setSaving(false)
     }
-
-    setOpen(false)
-    window.location.reload()
   }
 
   return (
@@ -92,7 +110,7 @@ export function ProductEditDialog({ product }: { product: Product }) {
         <DialogHeader>
           <DialogTitle className="text-charcoal">Editar producto</DialogTitle>
           <DialogDescription className="text-stone">
-            Modifica el nombre, las características y el precio del producto.
+            Modifica el nombre, las características, el precio y la imagen del producto.
           </DialogDescription>
         </DialogHeader>
 
@@ -136,6 +154,8 @@ export function ProductEditDialog({ product }: { product: Product }) {
               className="border-stone/40 bg-white text-charcoal placeholder:text-stone"
             />
           </div>
+
+          <ProductImageInput value={image} onChange={setImage} />
 
           {error && <p className="text-sm text-red-600">{error}</p>}
         </div>
