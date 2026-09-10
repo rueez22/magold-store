@@ -2,16 +2,17 @@ import { HoodieCard } from "@/components/hoodie-card"
 import { AutoSliderBanner } from "@/components/auto-slider-banner"
 import { supabase } from "@/lib/supabase"
 
+export const dynamic = "force-dynamic"
+
 export default async function Home() {
   const { data: pieces, error } = await supabase
-  .from("products")
-  .select("id, name, features, price, image_url")
-  .order("id", { ascending: true })
+    .from("products")
+    .select("id, name, features, price, image_url")
+    .order("id", { ascending: true })
 
-if (error) {
-  throw new Error(`Failed to load products: ${error.message}`)
-}
-  
+  if (error) {
+    throw new Error(`Failed to load products: ${error.message}`)
+  }
 
   return (
     <main id="top" className="flex min-h-screen flex-col">
@@ -31,14 +32,14 @@ if (error) {
 
           <div className="grid grid-cols-1 gap-x-10 gap-y-16 sm:grid-cols-2 lg:grid-cols-4">
             {pieces.map((piece) => (
- <HoodieCard
-    key={piece.id}
-    name={piece.name}
-    features={piece.features}
-    price={piece.price}
-    image={piece.image_url}
-  />
-))}
+              <HoodieCard
+                key={piece.id}
+                name={piece.name}
+                features={piece.features}
+                price={piece.price}
+                image={piece.image_url}
+              />
+            ))}
           </div>
         </div>
       </section>
