@@ -15,6 +15,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { supabaseBrowser } from "@/lib/supabase-browser"
+import { ProductImageInput, uploadProductImage } from "./product-image-upload"
 
 export function ProductCreateDialog() {
   const router = useRouter()
@@ -22,6 +23,7 @@ export function ProductCreateDialog() {
   const [name, setName] = useState("")
   const [features, setFeatures] = useState("")
   const [price, setPrice] = useState("")
+  const [image, setImage] = useState<File | null>(null)
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState("")
 
@@ -29,6 +31,7 @@ export function ProductCreateDialog() {
     setName("")
     setFeatures("")
     setPrice("")
+    setImage(null)
     setError("")
   }
 
@@ -43,29 +46,43 @@ export function ProductCreateDialog() {
 
     setSaving(true)
 
-    const normalizedFeatures = features
-      .split(",")
-      .map((feature) => feature.trim())
-      .filter(Boolean)
+    try {
+      let imageUrl: string | null = null
 
-    const { error: insertError } = await supabaseBrowser
-      .from("products")
-      .insert({
-        name: name.trim(),
-        features: normalizedFeatures,
-        price: parsedPrice,
-      })
+      if (image) {
+        imageUrl = await uploadProductImage(image)
+      }
 
-    setSaving(false)
+      const normalizedFeatures = features
+        .split(",")
+        .map((feature) => feature.trim())
+        .filter(Boolean)
 
-    if (insertError) {
-      setError("No se pudo crear el producto.")
-      return
+      const { error: insertError } = await supabaseBrowser
+        .from("products")
+        .insert({
+          name: name.trim(),
+          features: normalizedFeatures,
+          price: parsedPrice,
+          image_url: imageUrl,
+        })
+
+      if (insertError) {
+        throw new Error(insertError.message)
+      }
+
+      setOpen(false)
+      resetForm()
+      router.refresh()
+    } catch (createError) {
+      setError(
+        createError instanceof Error
+          ? createError.message
+          : "No se pudo crear el producto."
+      )
+    } finally {
+      setSaving(false)
     }
-
-    setOpen(false)
-    resetForm()
-    router.refresh()
   }
 
   function handleOpenChange(nextOpen: boolean) {
@@ -85,7 +102,7 @@ export function ProductCreateDialog() {
         <DialogHeader>
           <DialogTitle className="text-charcoal">Nuevo producto</DialogTitle>
           <DialogDescription className="text-stone">
-            Agrega un producto al catálogo.
+            Agrega un producto con su información y su imagen.
           </DialogDescription>
         </DialogHeader>
 
@@ -129,6 +146,8 @@ export function ProductCreateDialog() {
               className="border-stone/40 bg-white text-charcoal placeholder:text-stone"
             />
           </div>
+
+          <ProductImageInput value={image} onChange={setImage} />
 
           {error && <p className="text-sm text-red-600">{error}</p>}
         </div>
