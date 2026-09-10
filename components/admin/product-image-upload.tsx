@@ -16,13 +16,14 @@ export async function uploadProductImage(file: File) {
     throw new Error("La imagen no puede superar los 5 MB.")
   }
 
-  const extension = file.name.split(".").pop() || "jpg"
+  const extension = file.name.split(".").pop()?.toLowerCase() || "jpg"
   const path = `${crypto.randomUUID()}.${extension}`
 
   const { error: uploadError } = await supabaseBrowser.storage
     .from(BUCKET)
     .upload(path, file, {
       cacheControl: "3600",
+      contentType: file.type,
       upsert: false,
     })
 
