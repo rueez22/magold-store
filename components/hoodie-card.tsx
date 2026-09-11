@@ -1,12 +1,15 @@
 interface JewelryCardProps {
+  id: number
   name: string
   features: string[]
   price: number
-  image: string
+  image: string | null
 }
 
-export function HoodieCard({ name, features, price, image }: JewelryCardProps) {
+export function HoodieCard({ id, name, features, price, image }: JewelryCardProps) {
   const formattedPrice = `Bs. ${price.toLocaleString("es-BO")}`
+  const productCode = `MG-${String(id).padStart(3, "0")}`
+  const whatsappMessage = `Hola, ¿está disponible el producto "${name}" con código ${productCode}?`
 
   return (
     <article className="flex flex-col">
@@ -19,6 +22,9 @@ export function HoodieCard({ name, features, price, image }: JewelryCardProps) {
       </div>
       <div className="flex flex-col pt-5">
         <h3 className="font-serif text-2xl font-medium leading-tight text-charcoal">{name}</h3>
+        <p className="mt-1 text-xs uppercase tracking-[0.15em] text-stone">
+          Código: {productCode}
+        </p>
         <ul className="mt-3 flex flex-col gap-1.5">
           {features.map((item) => (
             <li key={item} className="flex items-baseline gap-2 text-sm leading-relaxed text-stone">
@@ -29,7 +35,7 @@ export function HoodieCard({ name, features, price, image }: JewelryCardProps) {
         </ul>
         <p className="mt-4 text-base tracking-wide text-charcoal">{formattedPrice}</p>
         <a
-          href={`https://wa.me/59172815801?text=Hola,%20me%20interesa%20el%20producto%20${encodeURIComponent(name)}%20de%20${encodeURIComponent(formattedPrice)}`}
+          href={`https://wa.me/59172815801?text=${encodeURIComponent(whatsappMessage)}`}
           target="_blank"
           rel="noopener noreferrer"
           className="mt-5 flex w-full items-center justify-center bg-charcoal px-6 py-3.5 text-xs font-medium uppercase tracking-[0.2em] text-cream transition-opacity hover:opacity-90"
