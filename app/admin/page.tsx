@@ -17,7 +17,7 @@ export default async function AdminPage() {
   const supabase = await createSupabaseServerClient()
   const { data: products, error } = await supabase
     .from("products")
-    .select("id, name, features, price, image_url")
+    .select("id, name, code, features, price, image_url")
     .order("id", { ascending: true })
 
   if (error) {
@@ -52,49 +52,45 @@ export default async function AdminPage() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {products?.map((product) => {
-                const productCode = `MG-${String(product.id).padStart(3, "0")}`
-
-                return (
-                  <TableRow key={product.id}>
-                    <TableCell className="font-medium text-charcoal">
-                      <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
-                        {product.image_url ? (
-                          <img
-                            src={product.image_url}
-                            alt={product.name}
-                            className="h-16 w-16 rounded-md border border-stone/20 object-cover"
-                          />
-                        ) : (
-                          <div className="flex h-16 w-16 items-center justify-center rounded-md border border-stone/20 bg-ivory text-xs text-stone">
-                            Sin imagen
-                          </div>
-                        )}
-                        <div>
-                          <div>{product.name}</div>
-                          <div className="mt-1 text-xs font-normal uppercase tracking-[0.15em] text-stone">
-                            Código: {productCode}
-                          </div>
+              {products?.map((product) => (
+                <TableRow key={product.id}>
+                  <TableCell className="font-medium text-charcoal">
+                    <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+                      {product.image_url ? (
+                        <img
+                          src={product.image_url}
+                          alt={product.name}
+                          className="h-16 w-16 rounded-md border border-stone/20 object-cover"
+                        />
+                      ) : (
+                        <div className="flex h-16 w-16 items-center justify-center rounded-md border border-stone/20 bg-ivory text-xs text-stone">
+                          Sin imagen
+                        </div>
+                      )}
+                      <div>
+                        <div>{product.name}</div>
+                        <div className="mt-1 text-xs font-normal uppercase tracking-[0.15em] text-stone">
+                          Código: {product.code || "Sin código"}
                         </div>
                       </div>
-                    </TableCell>
-                    <TableCell className="text-stone">
-                      {Array.isArray(product.features)
-                        ? product.features.join(", ")
-                        : product.features}
-                    </TableCell>
-                    <TableCell className="text-charcoal">
-                      {product.price}
-                    </TableCell>
-                    <TableCell>
-                      <div className="flex items-center gap-2">
-                        <ProductEditDialog product={product} />
-                        <ProductDeleteDialog product={product} />
-                      </div>
-                    </TableCell>
-                  </TableRow>
-                )
-              })}
+                    </div>
+                  </TableCell>
+                  <TableCell className="text-stone">
+                    {Array.isArray(product.features)
+                      ? product.features.join(", ")
+                      : product.features}
+                  </TableCell>
+                  <TableCell className="text-charcoal">
+                    {product.price}
+                  </TableCell>
+                  <TableCell>
+                    <div className="flex items-center gap-2">
+                      <ProductEditDialog product={product} />
+                      <ProductDeleteDialog product={product} />
+                    </div>
+                  </TableCell>
+                </TableRow>
+              ))}
             </TableBody>
           </Table>
         </div>
