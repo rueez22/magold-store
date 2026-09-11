@@ -1,15 +1,14 @@
 interface JewelryCardProps {
-  id: number
   name: string
+  code: string | null
   features: string[]
   price: number
   image: string | null
 }
 
-export function HoodieCard({ id, name, features, price, image }: JewelryCardProps) {
+export function HoodieCard({ name, code, features, price, image }: JewelryCardProps) {
   const formattedPrice = `Bs. ${price.toLocaleString("es-BO")}`
-  const productCode = `MG-${String(id).padStart(3, "0")}`
-  const whatsappMessage = `Hola, ¿está disponible el producto "${name}" con código ${productCode}?`
+  const whatsappMessage = `Hola, ¿está disponible el producto "${name}" con código ${code ?? "sin código"}?`
 
   return (
     <article className="flex flex-col">
@@ -23,7 +22,7 @@ export function HoodieCard({ id, name, features, price, image }: JewelryCardProp
       <div className="flex flex-col pt-5">
         <h3 className="font-serif text-2xl font-medium leading-tight text-charcoal">{name}</h3>
         <p className="mt-1 text-xs uppercase tracking-[0.15em] text-stone">
-          Código: {productCode}
+          Código: {code || "Sin código"}
         </p>
         <ul className="mt-3 flex flex-col gap-1.5">
           {features.map((item) => (
