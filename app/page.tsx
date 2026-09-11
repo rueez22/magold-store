@@ -7,7 +7,7 @@ export const dynamic = "force-dynamic"
 export default async function Home() {
   const { data: pieces, error } = await supabase
     .from("products")
-    .select("id, name, features, price, image_url")
+    .select("id, name, code, features, price, image_url")
     .order("id", { ascending: true })
 
   if (error) {
@@ -34,8 +34,8 @@ export default async function Home() {
             {pieces.map((piece) => (
               <HoodieCard
                 key={piece.id}
-                id={piece.id}
                 name={piece.name}
+                code={piece.code}
                 features={piece.features}
                 price={piece.price}
                 image={piece.image_url}
