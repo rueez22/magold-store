@@ -19,6 +19,7 @@ import { ProductImageInput, uploadProductImage } from "./product-image-upload"
 type Product = {
   id: number
   name: string
+  code?: string | null
   features: string[] | string | null
   price: number
   image_url?: string | null
@@ -31,6 +32,7 @@ export function ProductEditDialog({ product }: { product: Product }) {
 
   const [open, setOpen] = useState(false)
   const [name, setName] = useState(product.name)
+  const [code, setCode] = useState(product.code ?? "")
   const [features, setFeatures] = useState(initialFeatures)
   const [price, setPrice] = useState(String(product.price))
   const [image, setImage] = useState<File | null>(null)
@@ -41,6 +43,7 @@ export function ProductEditDialog({ product }: { product: Product }) {
     setOpen(nextOpen)
     if (nextOpen) {
       setName(product.name)
+      setCode(product.code ?? "")
       setFeatures(initialFeatures)
       setPrice(String(product.price))
       setImage(null)
@@ -52,8 +55,8 @@ export function ProductEditDialog({ product }: { product: Product }) {
     setError("")
 
     const parsedPrice = Number(price)
-    if (!name.trim() || Number.isNaN(parsedPrice) || parsedPrice < 0) {
-      setError("Completa el nombre y usa un precio válido.")
+    if (!name.trim() || !code.trim() || Number.isNaN(parsedPrice) || parsedPrice < 0) {
+      setError("Completa el nombre, el código y usa un precio válido.")
       return
     }
 
@@ -75,6 +78,7 @@ export function ProductEditDialog({ product }: { product: Product }) {
         .from("products")
         .update({
           name: name.trim(),
+          code: code.trim(),
           features: normalizedFeatures,
           price: parsedPrice,
           image_url: imageUrl,
@@ -110,11 +114,24 @@ export function ProductEditDialog({ product }: { product: Product }) {
         <DialogHeader>
           <DialogTitle className="text-charcoal">Editar producto</DialogTitle>
           <DialogDescription className="text-stone">
-            Modifica el nombre, las características, el precio y la imagen del producto.
+            Modifica el código, nombre, características, precio y la imagen del producto.
           </DialogDescription>
         </DialogHeader>
 
         <div className="space-y-4">
+          <div className="space-y-2">
+            <Label htmlFor={`code-${product.id}`} className="text-charcoal">
+              Código
+            </Label>
+            <Input
+              id={`code-${product.id}`}
+              value={code}
+              onChange={(event) => setCode(event.target.value)}
+              className="border-stone/40 bg-white text-charcoal placeholder:text-stone"
+              placeholder="Ej. AG-1024"
+            />
+          </div>
+
           <div className="space-y-2">
             <Label htmlFor={`name-${product.id}`} className="text-charcoal">
               Nombre
