@@ -34,6 +34,7 @@ export default async function Home() {
             {pieces.map((piece) => (
               <HoodieCard
                 key={piece.id}
+                id={piece.id}
                 name={piece.name}
                 features={piece.features}
                 price={piece.price}
