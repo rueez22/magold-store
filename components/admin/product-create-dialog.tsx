@@ -21,6 +21,7 @@ export function ProductCreateDialog() {
   const router = useRouter()
   const [open, setOpen] = useState(false)
   const [name, setName] = useState("")
+  const [code, setCode] = useState("")
   const [features, setFeatures] = useState("")
   const [price, setPrice] = useState("")
   const [image, setImage] = useState<File | null>(null)
@@ -29,6 +30,7 @@ export function ProductCreateDialog() {
 
   function resetForm() {
     setName("")
+    setCode("")
     setFeatures("")
     setPrice("")
     setImage(null)
@@ -39,8 +41,8 @@ export function ProductCreateDialog() {
     setError("")
 
     const parsedPrice = Number(price)
-    if (!name.trim() || Number.isNaN(parsedPrice) || parsedPrice < 0) {
-      setError("Completa el nombre y usa un precio válido.")
+    if (!name.trim() || !code.trim() || Number.isNaN(parsedPrice) || parsedPrice < 0) {
+      setError("Completa el nombre, el código y usa un precio válido.")
       return
     }
 
@@ -62,6 +64,7 @@ export function ProductCreateDialog() {
         .from("products")
         .insert({
           name: name.trim(),
+          code: code.trim(),
           features: normalizedFeatures,
           price: parsedPrice,
           image_url: imageUrl,
@@ -102,11 +105,24 @@ export function ProductCreateDialog() {
         <DialogHeader>
           <DialogTitle className="text-charcoal">Nuevo producto</DialogTitle>
           <DialogDescription className="text-stone">
-            Agrega un producto con su información y su imagen.
+            Agrega un producto con su código, información y su imagen.
           </DialogDescription>
         </DialogHeader>
 
         <div className="space-y-4">
+          <div className="space-y-2">
+            <Label htmlFor="create-code" className="text-charcoal">
+              Código
+            </Label>
+            <Input
+              id="create-code"
+              value={code}
+              onChange={(event) => setCode(event.target.value)}
+              className="border-stone/40 bg-white text-charcoal placeholder:text-stone"
+              placeholder="Ej. AG-1024"
+            />
+          </div>
+
           <div className="space-y-2">
             <Label htmlFor="create-name" className="text-charcoal">
               Nombre
